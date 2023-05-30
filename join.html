@@ -23,7 +23,10 @@
             </tr>
             <tr>
                 <td bgcolor="lightgrey" align="center">비밀번호 확인</td>
-                <td><input size="15" type="password" id="userPwd_chk" placeholder="비밀번호를 한 번 더 입력해주세요"></td>
+                <td>
+                    <input size="15" type="password" id="userPwd_chk" placeholder="비밀번호를 한 번 더 입력해주세요">
+                    <p id="caution_1" style="display:none;color:red;">입력하신 비밀번호가 다릅니다.</p>
+                </td>
             </tr>
             <tr>
                 <td bgcolor="lightgrey" align="center">이름</td>
@@ -44,8 +47,10 @@
             </tr>
         </table>
     </form>
-    <button id="submitBtn">확인</button>
-    <button id="cancelBtn">취소</button>
+    <div align="center">
+        <button id="submitBtn" onclick="submit();">확인</button>
+        <button id="cancelBtn">취소</button>
+    </div>
     <script src="join.js"></script>
 </body>
 </html>
