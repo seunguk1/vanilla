@@ -5,8 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
+<style>
+    .card {
+
+        height: 150px;
+
+        width: 100px;
+
+        border-radius: 15px;
+
+        display: inline-block;
+
+        margin-top: 30px;
+
+        margin-left: 30px;
+
+        margin-bottom: 30px;
+
+        position: relative;
+
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        overflow: hidden;
+
+        }
+</style>
 </head>
 <body>
+    <div align="center">
+        <h2>오늘은 <span id="today" style="color:chocolate;"></span>입니다.</h2>
+    </div>
+    <button class="card" onclick="goRoutin();">
+        <span id="sun">sun</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="mon">mon</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="tue">tue</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="wed">wed</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="thr">thr</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="fri">fri</span>
+    </button>
+    <button class="card" onclick="goRoutin();">
+        <span id="sat">sat</span>
+    </button>
     
+    <script src="myPage.js"></script>
 </body>
 </html>
