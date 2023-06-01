@@ -45,6 +45,7 @@ function goRoutine(num){
 var cnt_key = "";   // 로컬스토리지에 내용 저장할때의 key
 var routines = [];  // 루틴 목록 저장할 배열
 
+// 루틴 목록 추가하기
 function addCnt(){
     var routine = document.getElementById('content').value;
     var listId = routines.length +1; 
@@ -87,6 +88,10 @@ function loadRoutine(){
          console.log('운동을 등록해주세요.');
     }
 }
+
+document.querySelector('.delBtn').addEventListener('click',function(){
+    document.querySelector('.delBtn').parentElement.remove();
+});
 
 function returnList(){
     document.getElementById('calendar').style.display = 'block';    
