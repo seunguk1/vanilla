@@ -4,59 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="myPage.css" type="text/css">
     <title>My Page</title>
-<style>
-    .card {
 
-        height: 150px;
-
-        width: 100px;
-
-        border-radius: 15px;
-
-        display: inline-block;
-
-        margin-top: 30px;
-
-        margin-left: 30px;
-
-        margin-bottom: 30px;
-
-        position: relative;
-
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-        overflow: hidden;
-
-        }
-</style>
 </head>
 <body>
     <div align="center">
         <h2>오늘은 <span id="today" style="color:chocolate;"></span>입니다.</h2>
     </div>
-    <button class="card" onclick="goRoutin();">
-        <span id="sun">sun</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="mon">mon</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="tue">tue</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="wed">wed</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="thr">thr</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="fri">fri</span>
-    </button>
-    <button class="card" onclick="goRoutin();">
-        <span id="sat">sat</span>
-    </button>
-    
+    <div id="calendar">
+        <button class="card" onclick="goRoutine(0);">
+            <span id="sun"></span>
+        </button>
+        <button class="card" onclick="goRoutine(1);">
+            <span id="mon"></span>
+        </button>
+        <button class="card" onclick="goRoutine(2);">
+            <span id="tue"></span>
+        </button>
+        <button class="card" onclick="goRoutine(3);">
+            <span id="wed"></span>
+        </button>
+        <button class="card" onclick="goRoutine(4);">
+            <span id="thr"></span>
+        </button>
+        <button class="card" onclick="goRoutine(5);">
+            <span id="fri"></span>
+        </button>
+        <button class="card" onclick="goRoutine(6);">
+            <span id="sat"></span>
+        </button>
+    </div>
+    <div id="routine_area" style="display: none;">
+        <h2 style="display: inline-block;"><span id="day" style="color: blueviolet;"></span>일의 운동 Routine</h2>
+        <button type="button" style="display:inline-block;" onclick="returnList();">목록</button>
+        <div>
+            <input type="text" id="content" style="display: inline-block;" placeholder="오늘 할 운동을 입력하세요." />
+            <button style="display: inline-block;" onclick="addCnt();">추가</button>
+        </div>
+        <div>
+            <ul id="routine_list"></ul>
+        </div>
+    </div>
+
     <script src="myPage.js"></script>
 </body>
-</html>
+</html> 
