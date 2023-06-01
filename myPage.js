@@ -78,6 +78,8 @@ function loadRoutine(){
             span_tag.innerText = routines[i].text;
             button_tag.innerText = "X";
             button_tag.className = "delBtn";
+            button_tag.id = `del_${i}`;
+            li_tag.id = i;
             li_tag.appendChild(span_tag);
             li_tag.appendChild(button_tag);
             list_area.appendChild(li_tag);    
@@ -89,9 +91,14 @@ function loadRoutine(){
     }
 }
 
-document.querySelector('.delBtn').addEventListener('click',function(){
-    document.querySelector('.delBtn').parentElement.remove();
-});
+function delList() {
+    console.log('삭제');
+}
+
+// document.querySelector('.delBtn').addEventListener('click', function(){
+//     var num = EventTarget.parentElement.id;
+//     console.log('num');
+// });
 
 function returnList(){
     document.getElementById('calendar').style.display = 'block';    
