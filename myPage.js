@@ -48,17 +48,23 @@ var routines = [];  // 루틴 목록 저장할 배열
 // 루틴 목록 추가하기
 function addCnt(){
     var routine = document.getElementById('content').value;
-    var listId = routines.length +1; 
-    var content = {
-        id: listId,
-        text: routine
-    }
+    if(routine.trim() !== ""){
 
-    routines.push(content);
-    
-    window.localStorage.setItem(`Routine_${cnt_key}`, JSON.stringify(routines));
-    document.getElementById('content').value = "";
-    loadRoutine();
+        var listId = routines.length +1; 
+        var content = {
+            id: listId,
+            text: routine
+        }
+        
+        routines.push(content);
+        
+        window.localStorage.setItem(`Routine_${cnt_key}`, JSON.stringify(routines));
+        document.getElementById('content').value = "";
+        loadRoutine();
+    }else {
+        alert("운동 루틴을 입력해주세요.");
+        document.getElementById('content').focus();
+    }
 
 }
 
@@ -71,34 +77,33 @@ function loadRoutine(){
 
         var list_area = document.getElementById('routine_list');
         
-        for(i=0; i<routines.length; i++){
+     routines.forEach((routine, index) => {
             var li_tag = document.createElement("li");
             var span_tag = document.createElement("span");
             var button_tag = document.createElement('button');
-            span_tag.innerText = routines[i].text;
+            span_tag.innerText = routine.text;
             button_tag.innerText = "X";
             button_tag.className = "delBtn";
-            button_tag.id = `del_${i}`;
-            li_tag.id = i;
+            button_tag.id = `del_${index}`;
+            li_tag.id = index;
             li_tag.appendChild(span_tag);
             li_tag.appendChild(button_tag);
             list_area.appendChild(li_tag);    
-        }
-        // li_tag.id = listId;
+
+            button_tag.addEventListener('click', ()=>delList(index))
+        });
            
     }else {
          console.log('운동을 등록해주세요.');
     }
 }
 
-function delList() {
-    console.log('삭제');
+function delList(index) {
+    routines.splice(index, 1);
+   
+    window.localStorage.setItem(`Routine_${cnt_key}`, JSON.stringify(routines));
+    loadRoutine();
 }
-
-// document.querySelector('.delBtn').addEventListener('click', function(){
-//     var num = EventTarget.parentElement.id;
-//     console.log('num');
-// });
 
 function returnList(){
     document.getElementById('calendar').style.display = 'block';    
@@ -106,4 +111,5 @@ function returnList(){
     document.getElementById('routine_list').innerHTML = '';
     document.getElementById('content').innerText = '';
 
+    routines = [];
 }

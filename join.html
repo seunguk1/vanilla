@@ -4,36 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="myPage.css" type="text/css">
     <title>회원가입</title>
 </head>
 <body>
+    <nav class="navbar">
+        <ul class="navbar__menu">
+            <li><a href="file:///C:/Users/BD/project/vanilla/login.html">Login</a></li>
+            <li><a href="file:///C:/Users/BD/project/vanilla/join.html">Join</a></li>
+        </ul>
+    </nav>
     <h2>회원가입을 진행해주세요</h2>
     <form action="">
-        <table border="1px" bordercolor="grey" align="center">
+        <table class="joinForm" border="1px" bordercolor="grey" align="center">
             <tr>
                 <td colspan="2" bgcolor="lightblue" align="center">회원 기본 정보</td>
             </tr>
             <tr>
-                <td bgcolor="lightgrey" align="center">아이디</td>
-                <td><input size="15" type="text" id="userId" placeholder="영문+숫자 조합 최대 10자리"></td>
-            </tr>
-            <tr>
-                <td bgcolor="lightgrey" align="center">비밀번호</td>
-                <td><input size="15" type="password" id="userPwd" placeholder="영문+숫지 조합 최대 15자리"></td>
-            </tr>
-            <tr>
-                <td bgcolor="lightgrey" align="center">비밀번호 확인</td>
+                <td class="title">아이디</td>
                 <td>
-                    <input size="15" type="password" id="userPwd_chk" placeholder="비밀번호를 한 번 더 입력해주세요">
+                    <input size="28" type="text" id="userId" placeholder="영문+숫자 조합 최대 10자리">
+                    <button type="button" onclick="duplCheck();">중복확인</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="title">비밀번호</td>
+                <td><input size="28" type="password" id="userPwd" placeholder="영문+숫자 조합 최대 15자리"></td>
+            </tr>
+            <tr>
+                <td class="title">비밀번호 확인</td>
+                <td>
+                    <input size="28" type="password" id="userPwd_chk" placeholder="비밀번호를 한 번 더 입력해주세요">
                     <p id="caution_1" style="display:none;color:red;">입력하신 비밀번호가 다릅니다.</p>
                 </td>
             </tr>
             <tr>
-                <td bgcolor="lightgrey" align="center">이름</td>
+                <td class="title">이름</td>
                 <td><input size="15" type="text" id="userName" ></td>
             </tr>
             <tr>
-                <td bgcolor="lightgrey" align="center">나이</td>
+                <td class="title">나이</td>
                 <td>
                     <select name="" id="userAge">
                         <option value="">선택</option>

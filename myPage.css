@@ -46,3 +46,41 @@
     font-weight: lighter;
     cursor: pointer;
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:#263343;
+    padding: 8px 12px;
+}
+
+.navbar__menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0px;
+}
+
+.navbar__menu li {
+    padding: 8px 12px;
+}
+
+.navbar__menu a {
+    color: aliceblue;
+}
+
+
+.navbar__menu :hover {
+    background: #d49466;
+    border-radius: 4px;
+}
+
+.joinForm {
+    width: 60%;
+}
+
+.title {
+    width: 20%;
+    background-color: lightgrey;
+    text-align: center;
+}
