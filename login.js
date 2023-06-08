@@ -1,7 +1,7 @@
 const joinBtn = document.getElementById("joinBtn");
 
 joinBtn.addEventListener('click', function(){
-    location.href='file:///C:/Users/BD/project/vanilla/join.html'
+    location.href='./join.html'
 });
 
 function login() {
@@ -28,8 +28,12 @@ function login() {
             //회원 검증
             if(member !== undefined){   //아이디와 비밀번호 일치 확인
                 if(member.password == userPwd){
+                    var loginYn = {
+                        login : "Y"
+                    }                    
+                    window.localStorage.setItem("LoginYn", JSON.stringify(loginYn));
                     alert(` ${member.name}님 어서오세요.`);
-                    location.href='file:///C:/Users/BD/project/vanilla/myPage.html'
+                    location.href='./myPage.html'
                 }else{
                     alert('비밀번호가 일치하지 않습니다.');
                 }

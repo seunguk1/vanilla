@@ -9,8 +9,14 @@ var dok = dok_kor[today];       // dok: day of the week
 // 제목에 오늘 날짜 표기
 document.getElementById('today').innerText = `${year}년 ${month}월 ${day}일 ${dok}요일`;
 
+// today에 해당하는 요일 배경색 빨간색 변경
+var dayList = document.getElementById("day_of_week").children;
+dayList[today].style.background = 'crimson';
+dayList[today].style.color = 'beige';
+
+// 이번주의 첫번째 날 구하기 (일요일)
 var sunday_tmp = new Date(date.setDate(date.getDate() - today));
-var sunday = sunday_tmp.getDate();  // 이번주의 첫번째 날 구하기 (일요일)
+var sunday = sunday_tmp.getDate(); 
 
 var arr_week = new Array(7);        // 이번주 전체 날짜 배열
 for(i=0; i<7; i++){
@@ -29,6 +35,24 @@ document.getElementById('wed').innerText = arr_week[3] +'일';
 document.getElementById('thr').innerText = arr_week[4] +'일';
 document.getElementById('fri').innerText = arr_week[5] +'일';
 document.getElementById('sat').innerText = arr_week[6] +'일';
+
+// 로그인여부 확인 및 Nav 표시 상이
+var loginYn = JSON.parse(window.localStorage.getItem("LoginYn"));
+console.log(`로그인여부 :: ${loginYn.login}`);
+if(loginYn.login == "Y"){
+    document.getElementById("joinPath").style.display = "none";
+    // 정상적인 로그인을 한 상태면 logout으로 text 변경
+    document.getElementById("loginPath").innerHTML = `<a href="./login.html">Logout</a>`;
+}else {
+    alert("회원만 이용가능합니다.");
+    location.href = "./login.html";
+}
+
+// 로그인 후 login -> logout 변경된 버튼 클릭시, 로그인 상태를 'N'로 저장
+document.getElementById("loginPath").addEventListener('click', ()=>{
+    loginYn.login = "N";
+    window.localStorage.setItem("LoginYn", JSON.stringify(loginYn)); 
+});
 
 
 // 일별 루틴 상세보기
@@ -71,6 +95,8 @@ function addCnt(){
 // localStorage에서 저장된 값 불러오기
 function loadRoutine(){
     var values = window.localStorage.getItem(`Routine_${cnt_key}`);
+    var notionCnt = window.localStorage.getItem(`Notion_${cnt_key}`);
+
     if(values !== null){
         document.getElementById('routine_list').innerHTML = '';     
         routines = JSON.parse(values);
@@ -96,8 +122,15 @@ function loadRoutine(){
     }else {
          console.log('운동을 등록해주세요.');
     }
+
+    if(notionCnt !== null){
+        var cnt = JSON.parse(notionCnt);
+        document.getElementById('note').value = cnt.Notion;
+        document.getElementById('notionBtn').innerText = "알림수정";
+    }
 }
 
+// 루틴 리스트 단일 항목 삭제
 function delList(index) {
     routines.splice(index, 1);
    
@@ -105,11 +138,46 @@ function delList(index) {
     loadRoutine();
 }
 
+// 메모 저장
+function addNotion(){
+    var notion = document.getElementById('note').value;
+    var notionData = {
+        Notion : notion
+    };
+
+    window.localStorage.setItem(`Notion_${cnt_key}`, JSON.stringify(notionData));
+}
+
+// 메모 삭제
+function delNotion(){
+    document.getElementById('note').value = '';
+    
+    window.localStorage.removeItem(`Notion_${cnt_key}`);
+}
+
+// 입력한 메모를 해당 날짜에 로그인시 모달창으로 노출
+console.log(`today :: ${arr_week[today]}`);
+var today_notion = window.localStorage.getItem(`Notion_${arr_week[today]}`);
+if(today_notion !== null){
+    var notion_memo = JSON.parse(today_notion).Notion;
+    document.getElementById('modal-cnt').innerText = notion_memo;
+    document.getElementById('modal').style.display = 'block';
+}
+
+// modal 창닫기 이벤트
+document.getElementById('cloModalBtn').addEventListener('click',()=>{delModal();});
+function delModal(){
+    document.getElementById('modal').style.display = 'none';
+}
+
+// 목록으로 돌아가기
 function returnList(){
     document.getElementById('calendar').style.display = 'block';    
     document.getElementById('routine_area').style.display = 'none';    
     document.getElementById('routine_list').innerHTML = '';
     document.getElementById('content').innerText = '';
+    document.getElementById('note').value = '';
+    document.getElementById('notionBtn').innerText = "알림등록";
 
     routines = [];
 }

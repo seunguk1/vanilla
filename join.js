@@ -3,7 +3,7 @@ const cancelBtn = document.getElementById('cancelBtn');
 
 cancelBtn.addEventListener('click', function(){
     console.log('취소');
-    location.href = "file:///C:/Users/BD/project/vanilla/login.html"
+    location.href = "./login.html"
 });
 
 var members = [];   // localStorage에 저장할 배열
@@ -47,7 +47,7 @@ function submit(){
         window.localStorage.setItem('Members', JSON.stringify(members));
 
         alert(' 회원정보가 저장되었습니다. \n 로그인 후 이용해주세요.');
-        location.href = "file:///C:/Users/BD/project/vanilla/login.html"
+        location.href = "./login.html"
     }
 }
 

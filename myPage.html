@@ -11,37 +11,50 @@
 <body>
     <nav class="navbar">
         <ul class="navbar__menu">
-            <li><a href="file:///C:/Users/BD/project/vanilla/login.html">Login</a></li>
-            <li><a href="file:///C:/Users/BD/project/vanilla/join.html">Join</a></li>
+            <li id="loginPath"><a href="./login.html">Login</a></li>
+            <li id="joinPath"><a href="./join.html">Join</a></li>
         </ul>
     </nav>
+    <!--오늘 날짜 영역-->
     <div align="center">
         <h2>오늘은 <span id="today" style="color:chocolate;"></span>입니다.</h2>
     </div>
     <div id="calendar">
-        <button class="card" onclick="goRoutine(0);">
-            <span id="sun"></span>
-        </button>
-        <button class="card" onclick="goRoutine(1);">
-            <span id="mon"></span>
-        </button>
-        <button class="card" onclick="goRoutine(2);">
-            <span id="tue"></span>
-        </button>
-        <button class="card" onclick="goRoutine(3);">
-            <span id="wed"></span>
-        </button>
-        <button class="card" onclick="goRoutine(4);">
-            <span id="thr"></span>
-        </button>
-        <button class="card" onclick="goRoutine(5);">
-            <span id="fri"></span>
-        </button>
-        <button class="card" onclick="goRoutine(6);">
-            <span id="sat"></span>
-        </button>
+        <div id="day_of_week">
+            <div class="card_day">일요일</div>
+            <div class="card_day">월요일</div>
+            <div class="card_day">화요일</div>
+            <div class="card_day">수요일</div>
+            <div class="card_day">목요일</div>
+            <div class="card_day">금요일</div>
+            <div class="card_day">토요일</div>
+        </div>
+        <div>
+            <button class="card" onclick="goRoutine(0);">
+                <span id="sun"></span>
+            </button>
+            <button class="card" onclick="goRoutine(1);">
+                <span id="mon"></span>
+            </button>
+            <button class="card" onclick="goRoutine(2);">
+                <span id="tue"></span>
+            </button>
+            <button class="card" onclick="goRoutine(3);">
+                <span id="wed"></span>
+            </button>
+            <button class="card" onclick="goRoutine(4);">
+                <span id="thr"></span>
+            </button>
+            <button class="card" onclick="goRoutine(5);">
+                <span id="fri"></span>
+            </button>
+            <button class="card" onclick="goRoutine(6);">
+                <span id="sat"></span>
+            </button>
+        </div>
     </div>
-    <div id="routine_area" style="display: none;">
+    <!--운동루틴 목록 영역-->
+    <div id="routine_area" style="display: none;" >
         <h2 style="display: inline-block;"><span id="day" style="color: blueviolet;"></span>일의 운동 Routine</h2>
         <button type="button" style="display:inline-block;" onclick="returnList();">목록</button>
         <div>
@@ -50,6 +63,25 @@
         </div>
         <div>
             <ul id="routine_list"></ul>
+        </div>
+        <div style="display: inline-block;">
+            <div id="note_area">
+                <textarea class="notes" name="note" id="note" cols="30" rows="4"></textarea>
+            </div>
+            <div>
+                <button type="button" onclick="addNotion();"><span id="notionBtn">알림등록</span></button>
+                <button type="button" onclick="delNotion();">Clear</button>
+            </div>
+        </div>
+    </div>
+    <!--메모 모달창-->
+    <div id="modal" style="display: none;">
+        <div class="modal-window">
+            <div id="title">
+                <h2>MEMO</h2>
+                <button type="button" id="cloModalBtn" class="close_area">X</button>
+            </div>
+            <div id="modal-cnt" class="content"></div>
         </div>
     </div>
 
