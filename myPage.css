@@ -83,6 +83,7 @@
     border: none;
     font-weight: lighter;
     cursor: pointer;
+    float: inline-end;
 }
 
 .notes {
@@ -129,9 +130,9 @@
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     width: 400px;
-    height: 500px;
+    height: 200px;
     position: relative;
-    top: -100px;
+    top: 10px;
     padding: 10px;
 }
 
@@ -195,7 +196,7 @@
     width: 60%;
 }
 
-.title {
+.joinForm_title {
     width: 20%;
     background-color: lightgrey;
     text-align: center;

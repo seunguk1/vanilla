@@ -57,7 +57,8 @@ document.getElementById("loginPath").addEventListener('click', ()=>{
 
 // 일별 루틴 상세보기
 function goRoutine(num){
-    document.getElementById('calendar').style.display = 'none';    
+    document.getElementById('calendar').style.display = 'none';   
+    document.getElementById('modal').style.display = 'none'; 
     document.getElementById('routine_area').style.display = 'block';    
     
     document.getElementById('day').innerText = arr_week[num];

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="myPage.css" type="text/css">
+    <link rel="shortcut icon" href="#">
     <title>Fitness Of the Day</title>
 </head>
 <body>
@@ -14,17 +15,19 @@
             <li id="joinPath"><a href="./join.html">Join</a></li>
         </ul>
     </nav>
-     <h2>어서 오세요</h2>
-     <form action="">
-        <div>
-            <input type="text" id="userId" placeholder="아이디를 입력해주세요">
-        </div>
-        <div>
-            <input type="password" id="userPwd" placeholder="비밀번호를 입력해주세요">
-        </div>
-     </form>
-     <button type="submit" id="loginBtn" onclick="login();">로그인</button>
-     <button id="joinBtn">회원가입</button>
+    <div align="center">
+        <h2>어서 오세요</h2>
+        <form action="">
+            <div>
+                <input type="text" id="userId" placeholder="아이디를 입력해주세요">
+            </div>
+            <div>
+                <input type="password" id="userPwd" placeholder="비밀번호를 입력해주세요">
+            </div>
+        </form>
+        <button type="submit" id="loginBtn" onclick="login();">로그인</button>
+        <button id="joinBtn">회원가입</button>
+    </div>
     <script src="login.js"></script>
 </body>
 </html>
