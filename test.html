@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="picks">
+    <input type="text" id="minerals">
+    <button onclick="test();">test</button>
+<script>
+    function test(){
+        var maps = ["X591X","X1X5X","X231X", "1XXX1"];
+
+        solution(maps);
+    }
+
+    function solution(maps) {
+        console.log('start');
+        var answer = [];
+        var arr = maps.map((m)=> m.split(''));
+        console.log(arr);
+
+        var row = arr.length;
+        var col = arr[0].length;
+
+        for(i=0; i<row; i++){
+            for(j=0; j<col; j++){
+                var point = arr[i][j];
+
+                if(point == "X"){
+                    continue;
+                }
+
+                var result = Number(point);
+                
+            }
+        }
+
+        // console.log(answer);
+        return answer;
+    }
+
+</script>
+</body>
+</html>
