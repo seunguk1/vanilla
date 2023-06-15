@@ -7,7 +7,7 @@ joinBtn.addEventListener('click', function(){
 function login() {
     const userId = document.getElementById('userId').value.trim();   
     const userPwd = document.getElementById('userPwd').value.trim();   
-    
+
     console.log('ID :: '+userId.length);
     console.log('PW :: '+userPwd.length);
 

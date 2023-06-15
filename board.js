@@ -15,7 +15,7 @@ function writeCnt(){
     document.getElementById("writeForm").style.display = 'block';
     document.getElementById('writeBtn').style.display = 'none';
     document.getElementById('submitCnt').style.display = 'block';
-   
+    
     // var tr_tag = document.createElement('tr');
     // var td_no_tag = document.createElement('td');
     // var td_tit_tag = document.createElement('td');
