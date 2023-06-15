@@ -43,3 +43,43 @@ function showList() {
     document.getElementById('writeBtn').style.display = 'block';
     document.getElementById('submitCnt').style.display = 'none';
 }
+
+
+
+
+// Pagenation
+const contetList = document.querySelector(".contents");
+const buttons = document.querySelector('.buttons');
+
+const totalCnt = 120;
+const showCnt = 10;
+const showBtn = 5;
+const maxPage = Math.ceil(totalCnt/showCnt);
+
+let crrPage = 1;
+
+function loadCnt() {
+    let cntList = `
+        <span class="content_id">1</span>
+        <span class="content_title">제목</span>
+        <span class="content_author">작성자</span>
+        <span class="content_reply">댓글수</span>
+        <span class="content_date">2022.01.01</span>
+    `;
+
+    let page = `
+        <button class="button" id="page_1" onclick="pageMove(1);">1</button>
+    `;
+
+    contetList.innerHTML = cntList;
+    buttons.innerHTML = page;
+}
+
+function pageMove(num){
+    let currPage = document.getElementById(`page_${num}`);
+
+    currPage.classList.add("active");
+    console.log(`현재 페이지 :: ${num}`);
+}
+
+loadCnt();

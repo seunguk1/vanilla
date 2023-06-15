@@ -9,16 +9,16 @@ cancelBtn.addEventListener('click', function(){
 var members = [];   // localStorage에 저장할 배열
 console.log('int :: '+members);
 function submit(){
-    var userId = document.getElementById('userId').value.trim();
-    var userPwd = document.getElementById('userPwd').value.trim();
-    var userPwd_chk = document.getElementById('userPwd_chk').value.trim();
-    var userName = document.getElementById('userName').value.trim();
-    var userAge = document.getElementById('userAge').value;
+    let userId = document.getElementById('userId').value.trim();
+    let userPwd = document.getElementById('userPwd').value.trim();
+    let userPwd_chk = document.getElementById('userPwd_chk').value.trim();
+    let userName = document.getElementById('userName').value.trim();
+    let userAge = document.getElementById('userAge').value;
     console.log('sub :: '+members);
-    if(!validation()){
+    if(!validation(userId, userPwd, userPwd_chk, userName, userAge)){
         console.log('val');
     }else{
-        if(idDupChk){
+        if(!idDupChk){
             alert('아이디 중복확인을 해주세요.');
             return false;
         }
@@ -31,14 +31,14 @@ function submit(){
         }
         
         // localStorage에 저장
-        var member = {
+        let member = {
             id: userId,
             password: userPwd,
             name: userName,
             age: userAge
         }
 
-        var preMemberList = window.localStorage.getItem('Members');
+        let preMemberList = window.localStorage.getItem('Members');
         if(preMemberList !== null){
             members = JSON.parse(preMemberList);
         }
@@ -51,12 +51,13 @@ function submit(){
     }
 }
 
-function validation(){
-    var userId = document.getElementById('userId').value.trim();
-    var userPwd = document.getElementById('userPwd').value.trim();
-    var userPwd_chk = document.getElementById('userPwd_chk').value.trim();
-    var userName = document.getElementById('userName').value.trim();
-    var userAge = document.getElementById('userAge').value;
+// 입력값 유효성 체크
+function validation(userId, userPwd, userPwd_chk, userName, userAge){
+    // let userId = document.getElementById('userId').value.trim();
+    // var userPwd = document.getElementById('userPwd').value.trim();
+    // var userPwd_chk = document.getElementById('userPwd_chk').value.trim();
+    // var userName = document.getElementById('userName').value.trim();
+    // var userAge = document.getElementById('userAge').value;
     if(userId === ""){
         alert("아이디를 입력해주세요.");
         document.getElementById('userId').focus();
@@ -82,18 +83,24 @@ function validation(){
     return true;
 }
 
-var idDupChk = false;
+var idDupChk = false;     // 가입시 아이디 중복확인 필수를 위한 전역변수 선언  
+// 아이디 중복체크
 function duplCheck() {
-    var userId = document.getElementById('userId').value.trim();
-    var memberList = JSON.parse(window.localStorage.getItem('Members'));
+    const userId = document.getElementById('userId').value.trim();
+    let memberList = JSON.parse(window.localStorage.getItem('Members'));
     
-    var dupl_chk = memberList.findIndex(v => v.id == userId);
-    if(dupl_chk < 0){
-        alert('사용이 가능한 아이디입니다.');
-        idDupChk = false;
+    if( userId !== ""){
+        let dupl_chk = memberList.findIndex(v => v.id == userId);
+        if(dupl_chk < 0){
+            alert('사용이 가능한 아이디입니다.');
+            idDupChk = true;
+        }else {
+            alert('이미 사용중인 아이디입니다.');
+            idDupChk = false;
+        } 
     }else {
-        alert('이미 사용중인 아이디입니다.');
-        idDupChk = true;
-    } 
+        alert("아이디를 입력해주세요.");
+        
+    }
 
 }

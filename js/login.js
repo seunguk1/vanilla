@@ -1,15 +1,13 @@
 const joinBtn = document.getElementById("joinBtn");
 
+// 회원가입 버튼 클릭이벤트 - 페이지 이동
 joinBtn.addEventListener('click', function(){
-    location.href='./join.html'
+    location.href='./join.html';
 });
 
 function login() {
     const userId = document.getElementById('userId').value.trim();   
     const userPwd = document.getElementById('userPwd').value.trim();   
-
-    console.log('ID :: '+userId.length);
-    console.log('PW :: '+userPwd.length);
 
     // 입력값 검증
     if(userId === ""){
@@ -19,16 +17,16 @@ function login() {
         alert("비밀번호를 입력해주세요.");
         document.getElementById('userPwd').focus();
     }else {
-        var members = window.localStorage.getItem('Members');
+        let members = window.localStorage.getItem('Members');
         if(members !== null){
             // storage에 저장된 정보와 비교
-            var preMemberList = JSON.parse(members);
-            var member = preMemberList.find(v=>v.id == userId);
+            let preMemberList = JSON.parse(members);
+            let member = preMemberList.find(v=>v.id == userId);
             console.log('member:: '+member);
             //회원 검증
             if(member !== undefined){   //아이디와 비밀번호 일치 확인
                 if(member.password == userPwd){
-                    var loginYn = {
+                    let loginYn = {
                         login : "Y"
                     }                    
                     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn));

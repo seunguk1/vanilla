@@ -72,11 +72,11 @@ var routines = [];  // 루틴 목록 저장할 배열
 
 // 루틴 목록 추가하기
 function addCnt(){
-    var routine = document.getElementById('content').value;
+    let routine = document.getElementById('content').value;
     if(routine.trim() !== ""){
 
-        var listId = routines.length +1; 
-        var content = {
+        let listId = routines.length +1; 
+        let content = {
             id: listId,
             text: routine
         }
@@ -95,19 +95,19 @@ function addCnt(){
 
 // localStorage에서 저장된 값 불러오기
 function loadRoutine(){
-    var values = window.localStorage.getItem(`Routine_${cnt_key}`);
-    var notionCnt = window.localStorage.getItem(`Notion_${cnt_key}`);
+    let values = window.localStorage.getItem(`Routine_${cnt_key}`);
+    let notionCnt = window.localStorage.getItem(`Notion_${cnt_key}`);
 
     if(values !== null){
         document.getElementById('routine_list').innerHTML = '';     
         routines = JSON.parse(values);
 
-        var list_area = document.getElementById('routine_list');
+        let list_area = document.getElementById('routine_list');
         
      routines.forEach((routine, index) => {
-            var li_tag = document.createElement("li");
-            var span_tag = document.createElement("span");
-            var button_tag = document.createElement('button');
+            let li_tag = document.createElement("li");
+            let span_tag = document.createElement("span");
+            let button_tag = document.createElement('button');
             span_tag.innerText = routine.text;
             button_tag.innerText = "X";
             button_tag.className = "delBtn";
@@ -125,7 +125,7 @@ function loadRoutine(){
     }
 
     if(notionCnt !== null){
-        var cnt = JSON.parse(notionCnt);
+        let cnt = JSON.parse(notionCnt);
         document.getElementById('note').value = cnt.Notion;
         document.getElementById('notionBtn').innerText = "알림수정";
     }
@@ -141,17 +141,24 @@ function delList(index) {
 
 // 메모 저장
 function addNotion(){
-    var notion = document.getElementById('note').value;
-    var notionData = {
-        Notion : notion
-    };
-
-    window.localStorage.setItem(`Notion_${cnt_key}`, JSON.stringify(notionData));
+    let notion = document.getElementById('note').value.trim();
+    if(notion == ""){
+        alert("내용을 입력해주세요.");
+        return false;
+    }else {
+        let notionData = {
+            Notion : notion
+        };
+        
+        window.localStorage.setItem(`Notion_${cnt_key}`, JSON.stringify(notionData));
+        alert(" 메모가 저장되었습니다. ");
+    }
 }
 
 // 메모 삭제
 function delNotion(){
     document.getElementById('note').value = '';
+    document.getElementById('notionBtn').innerText = "알림등록";
     
     window.localStorage.removeItem(`Notion_${cnt_key}`);
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/myPage.css" type="text/css">
+     <link rel="stylesheet" href="../css/board.css" type="text/css">
+     <link rel="shortcut icon" href="#">
+     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+     <title>회원가입</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar__menu">
+            <li id="loginPath"><a href="./login.html">Login</a></li>
+            <li id="joinPath"><a href="./join.html">Join</a></li>
+            <li id="boardPath"><a href="./board.html">Board</a></li>
+        </ul>
+    </nav> 
+    <h2 style="padding-left: 80px; padding-top: 10PX;">공유 게시판</h2>
+    <hr/>
+
+    <!-- pagenation -->
+    <article class="article">
+        <ul class="contents"></ul>
+        <div class="buttons"></div>
+    </article>
+    <div style="display: inline-block; padding-left: 70px;">
+        <button type="button" id="writeBtn" onclick="writeCnt();">글쓰기</button>
+        <button type="button" id="submitCnt" onclick="submitCnt();" style="display: none;">등록</button>
+        <button type="button" id="listBtn" onclick="showList();">목록</button>
+    </div>
+
+    <!--글 작성 form-->
+    <div class="container" id="writeForm" style="display: none;">
+        <h2>글 작성하기</h2>
+        <form action="">
+            <div style="display: inline-block;">
+                <span>제목</span>
+                <input type="text" placeholder="제목을 입력헤주세요.">
+            </div>
+            <div >
+                <span>내용</span>
+                <textarea name="" id="" cols="50" rows="7"></textarea>
+            </div>    
+        </form>
+    </div>
+       
+       
+    
+<script src="../js/board.js"></script>  
+<script src="../js/jquery-3.7.0.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>  
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
