@@ -27,7 +27,8 @@ function login() {
             if(member !== undefined){   //아이디와 비밀번호 일치 확인
                 if(member.password == userPwd){
                     let loginYn = {
-                        login : "Y"
+                        login : "Y",
+                        id : userId
                     }                    
                     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn));
                     alert(` ${member.name}님 어서오세요.`);

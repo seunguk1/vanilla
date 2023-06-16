@@ -51,6 +51,7 @@ if(loginYn.login == "Y"){
 // 로그인 후 login -> logout 변경된 버튼 클릭시, 로그인 상태를 'N'로 저장
 document.getElementById("loginPath").addEventListener('click', ()=>{
     loginYn.login = "N";
+    loginYn.id = "";
     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn)); 
 });
 

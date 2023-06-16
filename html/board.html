@@ -8,7 +8,7 @@
      <link rel="stylesheet" href="../css/board.css" type="text/css">
      <link rel="shortcut icon" href="#">
      <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-     <title>회원가입</title>
+     <title>게시판</title>
 </head>
 <body>
     <nav class="navbar">
@@ -18,37 +18,61 @@
             <li id="boardPath"><a href="./board.html">Board</a></li>
         </ul>
     </nav> 
-    <h2 style="padding-left: 80px; padding-top: 10PX;">공유 게시판</h2>
+    <h2 id="pageTit" style="padding-left: 80px; padding-top: 10PX;">공유 게시판</h2>
     <hr/>
-
-    <!-- pagenation -->
-    <article class="article">
-        <ul class="contents"></ul>
+    <article id="contentList_area" class="article">
+        <table class="table table-bordered table-hover dt-responsive">
+            <thead>
+                <colgroup>
+                    <col width="7%">
+                    <col width="*">
+                    <col width="10%">
+                    <col width="8%">
+                    <col width="20%">
+                </colgroup>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>댓글수</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+            <tbody id="contetList">
+                <tr class="list" onclick="showDtil(1);">
+                    <td>1</td>
+                    <td>질문이요</td>
+                    <td>kim</td>
+                    <td>0</td>
+                    <td>2023.06.09</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- pagenation -->
         <div class="buttons"></div>
     </article>
-    <div style="display: inline-block; padding-left: 70px;">
+
+    <!--글 작성 form-->
+    <div class="write-area" id="writeForm" style="display: none;">
+        <form action="">
+            <div style="display: inline-block;">
+                <span>제목</span>
+                <input type="text" id="cntTitle"  placeholder="제목을 입력헤주세요.">
+            </div>
+            <div >
+                <span>내용</span>
+                <textarea name="" id="cntBody" cols="50" rows="7"></textarea>
+            </div>    
+        </form>
+    </div>
+
+    <!-- 버튼영역 -->
+    <div style="display: inline-block; padding-left: 75px;">
         <button type="button" id="writeBtn" onclick="writeCnt();">글쓰기</button>
         <button type="button" id="submitCnt" onclick="submitCnt();" style="display: none;">등록</button>
         <button type="button" id="listBtn" onclick="showList();">목록</button>
     </div>
 
-    <!--글 작성 form-->
-    <div class="container" id="writeForm" style="display: none;">
-        <h2>글 작성하기</h2>
-        <form action="">
-            <div style="display: inline-block;">
-                <span>제목</span>
-                <input type="text" placeholder="제목을 입력헤주세요.">
-            </div>
-            <div >
-                <span>내용</span>
-                <textarea name="" id="" cols="50" rows="7"></textarea>
-            </div>    
-        </form>
-    </div>
-       
-       
-    
 <script src="../js/board.js"></script>  
 <script src="../js/jquery-3.7.0.min.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>  
