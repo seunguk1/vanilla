@@ -22,14 +22,14 @@
     <hr/>
     <article id="contentList_area" class="article">
         <table class="table table-bordered table-hover dt-responsive">
+            <colgroup>
+                <col width="7%">
+                <col width="*">
+                <col width="10%">
+                <col width="8%">
+                <col width="20%">
+            </colgroup>
             <thead>
-                <colgroup>
-                    <col width="7%">
-                    <col width="*">
-                    <col width="10%">
-                    <col width="8%">
-                    <col width="20%">
-                </colgroup>
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
@@ -39,13 +39,7 @@
                 </tr>
             </thead>
             <tbody id="contetList">
-                <tr class="list" onclick="showDtil(1);">
-                    <td>1</td>
-                    <td>질문이요</td>
-                    <td>kim</td>
-                    <td>0</td>
-                    <td>2023.06.09</td>
-                </tr>
+               
             </tbody>
         </table>
         <!-- pagenation -->
@@ -64,6 +58,22 @@
                 <textarea name="" id="cntBody" cols="50" rows="7"></textarea>
             </div>    
         </form>
+    </div>
+
+    <!-- 게시글 상세보기 영역 -->
+    <div class="article" id="detail-area" style="display:none;">
+        <div>
+            <div id="detail_title" style="font-weight: bolder;">제목</div>
+            <div id="detail_content">내용</div>
+        </div>
+        <div>
+            <h3>댓글</h3>
+            <div id="comment-area"></div>
+            <div>
+                <input type="text" id="comment_input" placeholder="댓글을 작성해주세요.">
+                <button type="button" id="commentBtn" onclick="addComment();">추가</button>
+            </div>
+        </div>
     </div>
 
     <!-- 버튼영역 -->

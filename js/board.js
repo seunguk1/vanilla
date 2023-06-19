@@ -39,12 +39,54 @@ function showList() {
     document.getElementById("contentList_area").style.display = 'block';
     document.getElementById('submitCnt').style.display = 'none';
     document.getElementById('writeBtn').style.display = 'inline';
+
+    location.reload();
 }
 
 // 글 상세 보여주기
 function showDtil(num) {
-
+    document.getElementById('pageTit').innerText = '글 상세보기';
+    document.getElementById('contentList_area').style.display = 'none';
+    document.getElementById('detail-area').style.display = 'block';
+    document.getElementById('writeBtn').style.display = 'none';
     console.log(`글 index :: ${num}`);
+    post_index = num;
+
+    // localStorage에서 해당 글 찾아서 보여주기
+    let post = JSON.parse(window.localStorage.getItem('Post'));
+    let obj = post.find(v => v.index == num);
+    document.getElementById('detail_title').innerText = `제목 : ${obj.title}`;
+    document.getElementById('detail_content').innerText = obj.body;
+    
+    loadComment();
+}
+
+// 게시글 index 전역변수로 선언
+var post_index = '';    // 상세글보기, 해당글에 댓글달기 시 필요 
+
+// 댓글 등록하기
+function addComment(){
+    let comment_val = document.getElementById('comment_input').value.trim();
+    let post = JSON.parse(window.localStorage.getItem('Post'));
+    let post_content = post.find(v => v.index == post_index);
+
+    let obj = {
+        id : loginYn.id,
+        comment : comment_val,
+        date : `${year}.${month}.${day}`
+    };
+
+    post_content.reply.push(obj);
+
+    window.localStorage.setItem('Post', JSON.stringify(post));
+}
+
+// 댓글 보여주기
+function loadComment() {
+    let post = JSON.parse(window.localStorage.getItem('Post'));
+    let post_content = post.find(v => v.index == post_index);
+    let comments = post_content.reply;
+    console.log(comments);
 }
 
 // 글 등록하기
@@ -54,12 +96,12 @@ function submitCnt() {
 
     let post = JSON.parse(window.localStorage.getItem('Post'));
     let obj = {
-        index : 2,
+        index : post.length+1,
         id : loginYn.id,
         title : cnt_title,
         body : cnt_body,
         date : `${year}.${month}.${day}`,
-       
+        reply : []
     }
     post.push(obj);
 
@@ -72,10 +114,7 @@ function submitCnt() {
 
 }
 
-
-
 // Pagenation
-const contetList = document.querySelector(".contents");
 const buttons = document.querySelector('.buttons');
 
 const totalCnt = 120;
@@ -85,46 +124,24 @@ const maxPage = Math.ceil(totalCnt/showCnt);
 
 let crrPage = 1;
 
+// 게시판 글목록 구성하기
 function loadCnt() {
-    const tr_tag = document.createElement('tr');
-    const td_no_tag = document.createElement('td');
-    const td_tit_tag = document.createElement('td');
-    const td_auth_tag = document.createElement('td');
-    const td_repl_tag = document.createElement('td');
-    const td_date_tag = document.createElement('td');
 
     let post_list = JSON.parse(window.localStorage.getItem('Post'));
-    let list_HTML = '';
 
     for(let i=0; i<post_list.length; i++){
-        td_no_tag.innerText = post_list.index;
-        td_tit_tag.innerText = post_list.title;
-        td_auth_tag.innerText = post_list.id;
-        td_repl_tag.innerText = '0';    // post_list.replies.length
-        td_date_tag.innerText = '2023.06.09'; //post_list.date  
-        
-        tr_tag.appendChild(td_no_tag);
-        tr_tag.appendChild(td_tit_tag);
-        tr_tag.appendChild(td_auth_tag);
-        tr_tag.appendChild(td_repl_tag);
-        tr_tag.appendChild(td_date_tag);
-        tr_tag.classList.add('list');
-        // tr_tag.onclick(showDtil(post_list.index));
+        let list_html = `
+            <tr class="list" onclick="showDtil(${post_list[i].index});">
+                <td>${post_list[i].index}</td>
+                <td>${post_list[i].title}</td>
+                <td>${post_list[i].id}</td>
+                <td>${post_list[i].reply.length}</td>
+                <td>${post_list[i].date}</td>
+            </tr>
+        `;
 
-        document.getElementById('contentList').append(tr_tag);
+        document.querySelector("tbody").insertAdjacentHTML("afterbegin", list_html);
     }
-
-    // td_no_tag.innerText = '2';
-    // td_tit_tag.innerText = 'test';
-    // td_auth_tag.innerText = 'kim';
-    // td_date_tag.innerText = '2023.06.09';
-    // td_repl_tag.innerText = '0';
-    // tr_tag.appendChild(td_no_tag);
-    // tr_tag.appendChild(td_tit_tag);
-    // tr_tag.appendChild(td_auth_tag);
-    // tr_tag.appendChild(td_date_tag);
-    // tr_tag.appendChild(td_repl_tag);
-    // document.getElementById('content-list').appendChild(tr_tag);
 
     let page = `
         <button class="button" id="page_1" onclick="pageMove(1);">1</button>
@@ -133,6 +150,7 @@ function loadCnt() {
     buttons.innerHTML = page;
 }
 
+// 페이지 이동
 function pageMove(num){
     let currPage = document.getElementById(`page_${num}`);
 
