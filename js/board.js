@@ -57,12 +57,18 @@ function showDtil(num) {
     let obj = post.find(v => v.index == num);
     document.getElementById('detail_title').innerText = `제목 : ${obj.title}`;
     document.getElementById('detail_content').innerText = obj.body;
+
+    // 글 작성자가 로그인시 수정, 삭제 버튼 노출
+    if(obj.id == loginYn.id){
+        document.getElementById('modifyBtn').style.display = 'inline';
+        document.getElementById('deleteBtn').style.display = 'inline';
+    }
     
     loadComment();
 }
 
 // 게시글 index 전역변수로 선언
-var post_index = '';    // 상세글보기, 해당글에 댓글달기 시 필요 
+var post_index = '';    // 상세글보기, 수정, 해당글에 댓글달기 시 필요 
 
 // 댓글 등록하기
 function addComment(){
@@ -70,15 +76,20 @@ function addComment(){
     let post = JSON.parse(window.localStorage.getItem('Post'));
     let post_content = post.find(v => v.index == post_index);
 
-    let obj = {
-        id : loginYn.id,
-        comment : comment_val,
-        date : `${year}.${month}.${day}`
-    };
-
-    post_content.reply.push(obj);
-
-    window.localStorage.setItem('Post', JSON.stringify(post));
+    if(comment_val !== ""){
+        let obj = {
+            id : loginYn.id,
+            comment : comment_val,
+            date : `${year}.${month}.${day}`
+        };
+        
+        post_content.reply.push(obj);
+        
+        window.localStorage.setItem('Post', JSON.stringify(post));
+        loadComment();
+    }else {
+        alert("댓글 내용을 입력해주세요.");
+    }
 }
 
 // 댓글 보여주기
@@ -87,75 +98,171 @@ function loadComment() {
     let post_content = post.find(v => v.index == post_index);
     let comments = post_content.reply;
     console.log(comments);
+
+    let comment_html = '';
+    for(let i=0; i<comments.length; i++){
+        let html = `
+            <ul  class="comment-row">
+                <li class="comment-id">${comments[i].id}</li>
+                <li class="comment-cnt">${comments[i].comment}</li>
+                <li class="comment-date">${comments[i].date}</li>
+                <button class="comment-delete-btn" onclick="delComment(${i});">X</button>
+            </ul>  
+        `;
+
+        comment_html += html;
+    }
+
+    document.getElementById('comment_list').innerHTML = comment_html;
 }
+
+// 댓글 삭제
+function delComment(index){
+    let post = JSON.parse(window.localStorage.getItem('Post'));
+    let post_content = post.find(v => v.index == post_index);
+    let comments = post_content.reply; 
+    // 삭제 버튼을 클릭한 댓글의 인덱스를 받아와서 해당 댓글만 빠진 배열을 새로 저장함
+    comments.splice(index,1);
+    // 해당 댓글 삭제된 새로운 배열을 기존 Post 배열에 담음
+    post_content.reply = comments;
+
+    window.localStorage.setItem("Post", JSON.stringify(post));
+    loadComment();
+}
+
+var post_separator = ''; // 새 글 등록과 기존글 수정을 구분하기 위한 전역변수
 
 // 글 등록하기
 function submitCnt() {
     let cnt_title = document.getElementById('cntTitle').value.trim();
     let cnt_body = document.getElementById('cntBody').value.trim();
 
+    if(cnt_title == ""){
+        alert('제목을 입력해주세요.');
+        return false;
+    }else if(cnt_body == ""){
+        alert('내용을 입력해주세요.');
+        return false;
+    }else {
+        let post = JSON.parse(window.localStorage.getItem('Post'));
+        let obj = '';
+        if(post_separator == "MODI"){       // 수정일 경우
+            let post_content = post.find(v => v.index == post_index);
+        
+            post_content.title = cnt_title;
+            post_content.body = cnt_body;
+            post_content.date = `${year}.${month}.${day}`;
+            
+        }else {                             // 신규 등록
+            obj = {
+                index : post[post.length-1].index+1,
+                id : loginYn.id,
+                title : cnt_title,
+                body : cnt_body,
+                date : `${year}.${month}.${day}`,
+                reply : []
+            };
+            post.push(obj);
+        }
+        
+        window.localStorage.setItem('Post', JSON.stringify(post));
+        
+        // 입력 form clear
+        cnt_title = '';
+        cnt_body = '';
+        showList();
+    }
+}
+
+// 글 수정하기
+function modifyCnt() {
+    writeCnt();
+    post_separator = 'MODI';
+    document.getElementById('detail-area').style.display = 'none';
+    document.getElementById('modifyBtn').style.display = 'none';
+    document.getElementById('deleteBtn').style.display = 'none';
+    document.getElementById('listBtn').innerText = '취소';
+
+    // localStorage에서 해당 글 찾아서 보여주기
     let post = JSON.parse(window.localStorage.getItem('Post'));
-    let obj = {
-        index : post.length+1,
-        id : loginYn.id,
-        title : cnt_title,
-        body : cnt_body,
-        date : `${year}.${month}.${day}`,
-        reply : []
-    }
-    post.push(obj);
-
-    window.localStorage.setItem('Post', JSON.stringify(post));
-
-    // 입력 form clear
-    cnt_title = '';
-    cnt_body = '';
-    showList();
+    let obj = post.find(v => v.index == post_index);
+    document.getElementById('cntTitle').value = obj.title;
+    document.getElementById('cntBody').value = obj.body;
 
 }
 
-// Pagenation
-const buttons = document.querySelector('.buttons');
+// 글 삭제하기
+function deleteCnt(){
+    const msg = '게시글을 삭제하시겠습니까?';
+    if(confirm(msg)){
+        let post = JSON.parse(window.localStorage.getItem('Post'));
+        let index = post.findIndex(v => v.index == post_index);
+        post.splice(index, 1);
+        
+        window.localStorage.setItem("Post", JSON.stringify(post));
+        alert("삭제되었습니다.");
+        showList();
+    }else {
 
-const totalCnt = 120;
-const showCnt = 10;
-const showBtn = 5;
-const maxPage = Math.ceil(totalCnt/showCnt);
+    }
+}
 
-let crrPage = 1;
-
-// 게시판 글목록 구성하기
-function loadCnt() {
-
+    // Pagenation
     let post_list = JSON.parse(window.localStorage.getItem('Post'));
+    const buttons = document.querySelector('.buttons');
+    var page_arr = [];  // 페이지별 보여줄 글목록 새로운 배열
+    const maxPage = Math.ceil(post_list.length/5);
+    var currPage = 1;
 
-    for(let i=0; i<post_list.length; i++){
-        let list_html = `
-            <tr class="list" onclick="showDtil(${post_list[i].index});">
-                <td>${post_list[i].index}</td>
-                <td>${post_list[i].title}</td>
-                <td>${post_list[i].id}</td>
-                <td>${post_list[i].reply.length}</td>
-                <td>${post_list[i].date}</td>
-            </tr>
-        `;
-
-        document.querySelector("tbody").insertAdjacentHTML("afterbegin", list_html);
+    // 글번호를 내림차순으로 정렬 
+    post_list.sort(function(a,b){
+        return b.index - a.index;
+    });
+    
+    for(let i=0; i<maxPage; i++){
+        page_arr.push(post_list.splice(0,5));
     }
+    console.log(page_arr);
 
-    let page = `
-        <button class="button" id="page_1" onclick="pageMove(1);">1</button>
-    `;
-
-    buttons.innerHTML = page;
-}
+    let page_html = '';
+    for(let x=0; x<page_arr.length; x++){
+        page_html += `<button class="button" id="page_${x+1}" onclick="pageMove(${x+1});">${x+1}</button>`;
+    }
+    buttons.innerHTML = page_html;
 
 // 페이지 이동
 function pageMove(num){
-    let currPage = document.getElementById(`page_${num}`);
-
-    currPage.classList.add("active");
+    // currPage = document.getElementById(`page_${num}`);
+    // currPage.classList.add("active");
     console.log(`현재 페이지 :: ${num}`);
+    const button = document.querySelectorAll('.button');
+    button.classList.toggle('active');
+
+    document.querySelector("tbody").innerHTML = '';
+    loadCnt(num);
 }
+
+// 게시판 글목록 구성하기
+function loadCnt(num) {
+    let p = num ? num-1 : 0;
+    // 글목록 생성
+    for(let i=0; i<page_arr[p].length; i++){
+
+        let list_html = `
+            <tr class="list" onclick="showDtil(${page_arr[p][i].index});">
+                <td>${page_arr[p][i].index}</td>
+                <td>${page_arr[p][i].title}</td>
+                <td>${page_arr[p][i].id}</td>
+                <td>${page_arr[p][i].reply.length}</td>
+                <td>${page_arr[p][i].date}</td>
+            </tr>
+        `;
+
+        document.querySelector("tbody").insertAdjacentHTML("beforeend", list_html);
+    }
+    
+}
+
+
 
 loadCnt();

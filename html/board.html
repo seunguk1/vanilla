@@ -61,18 +61,25 @@
     </div>
 
     <!-- 게시글 상세보기 영역 -->
-    <div class="article" id="detail-area" style="display:none;">
-        <div>
+    <div  id="detail-area" style="display:none;">
+        <div class="article">
             <div id="detail_title" style="font-weight: bolder;">제목</div>
-            <div id="detail_content">내용</div>
+            <div id="detail_content" style="padding-top: 30px;">내용</div>
         </div>
+       
         <div>
-            <h3>댓글</h3>
-            <div id="comment-area"></div>
-            <div>
-                <input type="text" id="comment_input" placeholder="댓글을 작성해주세요.">
-                <button type="button" id="commentBtn" onclick="addComment();">추가</button>
-            </div>
+            <ul class="comment">
+                <li class="comment-form">
+                    <form >
+                        <h5>댓글쓰기<span></span></h5>
+                        <span class="ps_box">
+                            <input type="text" id="comment_input" class="int" placeholder="댓글을 작성해주세요." />
+                        </span>
+                        <button type="button" class="addBtn" onclick="addComment();">추가</button>
+                    </form>
+                </li>
+                <li id="comment_list"></li>
+            </ul>
         </div>
     </div>
 
@@ -80,7 +87,9 @@
     <div style="display: inline-block; padding-left: 75px;">
         <button type="button" id="writeBtn" onclick="writeCnt();">글쓰기</button>
         <button type="button" id="submitCnt" onclick="submitCnt();" style="display: none;">등록</button>
+        <button type="button" id="modifyBtn" onclick="modifyCnt();" style="display: none;">수정</button>
         <button type="button" id="listBtn" onclick="showList();">목록</button>
+        <button type="button" id="deleteBtn" onclick="deleteCnt();" style="display: none;">삭제</button>
     </div>
 
 <script src="../js/board.js"></script>  
