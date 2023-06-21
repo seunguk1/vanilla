@@ -5,6 +5,7 @@ if(loginYn.login == "Y"){
     document.getElementById("joinPath").style.display = "none";
     // 정상적인 로그인을 한 상태면 logout으로 text 변경
     document.getElementById("loginPath").innerHTML = `<a href="./login.html">Logout</a>`;
+    document.getElementById('myPagePath').innerHTML = `<a href="./myPage.html">${loginYn.name}</a>님, 반갑습니다.`;
 }else {
     alert("회원만 이용가능합니다.");
     location.href = "./login.html";
@@ -14,6 +15,7 @@ if(loginYn.login == "Y"){
 document.getElementById("loginPath").addEventListener('click', ()=>{
     loginYn.login = "N";
     loginYn.id = "";
+    loginYn.name = "";
     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn)); 
 });
 
@@ -86,6 +88,7 @@ function addComment(){
         post_content.reply.push(obj);
         
         window.localStorage.setItem('Post', JSON.stringify(post));
+        document.getElementById('comment_input').value = '';
         loadComment();
     }else {
         alert("댓글 내용을 입력해주세요.");
@@ -232,11 +235,11 @@ function deleteCnt(){
 
 // 페이지 이동
 function pageMove(num){
-    // currPage = document.getElementById(`page_${num}`);
-    // currPage.classList.add("active");
     console.log(`현재 페이지 :: ${num}`);
     const button = document.querySelectorAll('.button');
-    button.classList.toggle('active');
+    button.forEach(v => {
+        v.classList.toggle('active');
+    });
 
     document.querySelector("tbody").innerHTML = '';
     loadCnt(num);
@@ -261,8 +264,10 @@ function loadCnt(num) {
         document.querySelector("tbody").insertAdjacentHTML("beforeend", list_html);
     }
     
+    // 페이지 처음 진입시 1 페이지를 표시
+    if(p == 0){
+        document.getElementById('page_1').classList.add('active');
+    }
 }
-
-
 
 loadCnt();

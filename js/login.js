@@ -28,7 +28,8 @@ function login() {
                 if(member.password == userPwd){
                     let loginYn = {
                         login : "Y",
-                        id : userId
+                        id : userId,
+                        name : member.name
                     }                    
                     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn));
                     alert(` ${member.name}님 어서오세요.`);
