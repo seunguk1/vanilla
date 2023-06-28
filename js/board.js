@@ -212,7 +212,6 @@ function deleteCnt(){
 
     // Pagenation
     let post_list = JSON.parse(window.localStorage.getItem('Post'));
-    const buttons = document.querySelector('.buttons');
     var page_arr = [];  // 페이지별 보여줄 글목록 새로운 배열
     const maxPage = Math.ceil(post_list.length/5);
     var currPage = 1;
@@ -231,7 +230,7 @@ function deleteCnt(){
     for(let x=0; x<page_arr.length; x++){
         page_html += `<button class="button" id="page_${x+1}" onclick="pageMove(${x+1});">${x+1}</button>`;
     }
-    buttons.innerHTML = page_html;
+    document.getElementById('page_area').innerHTML = page_html;
 
 // 페이지 이동
 function pageMove(num){
@@ -241,10 +240,10 @@ function pageMove(num){
         v.classList.toggle('active');
     });
 
-    document.querySelector("tbody").innerHTML = '';
+    document.getElementById("contentList").innerHTML = '';
     loadCnt(num);
 }
-
+document.get
 // 게시판 글목록 구성하기
 function loadCnt(num) {
     let p = num ? num-1 : 0;
@@ -261,7 +260,7 @@ function loadCnt(num) {
             </tr>
         `;
 
-        document.querySelector("tbody").insertAdjacentHTML("beforeend", list_html);
+        document.getElementById("contentList").insertAdjacentHTML("beforeend", list_html);
     }
     
     // 페이지 처음 진입시 1 페이지를 표시

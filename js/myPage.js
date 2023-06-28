@@ -28,13 +28,16 @@ for(i=0; i<7; i++){
 console.log(arr_week);
 
 // 각 버튼에 날짜 할당
-document.getElementById('sun').innerText = arr_week[0] +'일';
-document.getElementById('mon').innerText = arr_week[1] +'일';
-document.getElementById('tue').innerText = arr_week[2] +'일';
-document.getElementById('wed').innerText = arr_week[3] +'일';
-document.getElementById('thr').innerText = arr_week[4] +'일';
-document.getElementById('fri').innerText = arr_week[5] +'일';
-document.getElementById('sat').innerText = arr_week[6] +'일';
+const day_of_week_arr = ['sun','mon','tue','wed','thr','fri','sat'];
+let dateBtn_html = '';
+day_of_week_arr.forEach((v, index)=>{
+    dateBtn_html += `<button class="card" onclick="goRoutine(${index});">
+                        <span id="${v}">${arr_week[index]}일</span>
+                    </button>
+                    `;
+});
+document.getElementById('dateBtn_area').innerHTML = dateBtn_html;
+
 
 // 로그인여부 확인 및 Nav 표시 상이
 var loginYn = JSON.parse(window.localStorage.getItem("LoginYn"));

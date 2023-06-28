@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="picks">
+    <input type="text" id="minerals">
+    <button onclick="test();">test</button>
+<script>
+    function test(){
+        let number = "4177252841";
+        let k = 4;
+
+        solution(number, k);
+    }
+
+    function solution(number, k) {
+        var answer = '';
+    
+        let arr_number = number.split('').map((v)=> Number(v));
+        let count = k;
+        let confirm_answer_len = arr_number.length - k + 1;
+        console.log("=== before ===");
+        console.log(arr_number);
+
+        let i = 0;
+        while(count !== 0){
+            let confirm_arr = arr_number.slice(0, confirm_answer_len);
+            // let min = confirm_arr.reduce((a,b)=>{return a-b>0 ? b : a},0);
+            // let max = confirm_arr.reduce((a,b)=>{return a-b>0 ? a : b},0);
+            // console.log(`min :: ${min}`);
+            // console.log(`max :: ${max}`);
+
+            // let del_index = arr_number.indexOf(min);                
+            // console.log(`del_index :: ${del_index}`);
+            let del_index = 0;
+            for(let i=0; i<confirm_arr.length-1; i++){
+                if(confirm_arr[i] < confirm_arr[i+1]){
+                    del_index = i;    
+                    break;
+                }else if(confirm_arr[i] === confirm_arr[i+1]){
+                    
+                }        
+            }
+
+            arr_number.splice(del_index,1);
+            count--;
+        }
+        
+        console.log("=== after ===");
+        console.log(arr_number);
+
+        answer = arr_number.reduce((acc, crr)=>{
+            return String(acc) + String(crr);
+        }, '');
+
+        console.log(answer);
+
+        return answer;
+    }
+
+
+</script>
+</body>
+</html>

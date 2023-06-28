@@ -53,11 +53,7 @@ function submit(){
 
 // 입력값 유효성 체크
 function validation(userId, userPwd, userPwd_chk, userName, userAge){
-    // let userId = document.getElementById('userId').value.trim();
-    // var userPwd = document.getElementById('userPwd').value.trim();
-    // var userPwd_chk = document.getElementById('userPwd_chk').value.trim();
-    // var userName = document.getElementById('userName').value.trim();
-    // var userAge = document.getElementById('userAge').value;
+    
     if(userId === ""){
         alert("아이디를 입력해주세요.");
         document.getElementById('userId').focus();
