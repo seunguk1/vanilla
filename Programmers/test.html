@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>test</title>
+</head>
+<body>
+    <input type="text" id="picks">
+    <input type="text" id="minerals">
+    <button onclick="test();">test</button>
+<script>
+    function test(){
+        let numbers = [1,1,1,1,1];
+        let target = 3;
+
+        solution(numbers, target);
+    }
+
+    function solution(numbers, target) {
+        var answer = 0;
+    
+        console.log(plus(5));
+        return answer;
+    }
+
+    function plus(num){
+        if(num === 0){
+            return num;
+        }
+        console.log(num);
+        return (num + plus(num-1));
+    }
+
+</script>
+</body>
+</html>
