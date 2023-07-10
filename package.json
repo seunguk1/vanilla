@@ -9,5 +9,8 @@
   "main": "index.js",
   "repository": "https://github.com/seunguk1/vanilla.git",
   "author": "SuLee <leeseunguk3@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.6.1"
+  }
 }
