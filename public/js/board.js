@@ -210,17 +210,19 @@ function deleteCnt(){
     }
 }
 
-    // Pagenation
-    let post_list = JSON.parse(window.localStorage.getItem('Post'));
-    var page_arr = [];  // 페이지별 보여줄 글목록 새로운 배열
-    const maxPage = Math.ceil(post_list.length/5);
-    var currPage = 1;
-
+// Pagenation
+let post_list = JSON.parse(window.localStorage.getItem('Post'));
+const page_arr = [];  // 페이지별 보여줄 글목록 새로운 배열
+let maxPage = 0;
+if(post_list !== null){
+    maxPage = Math.ceil(post_list.length/5);
+    // let currPage = 1;
+    
     // 글번호를 내림차순으로 정렬 
     post_list.sort(function(a,b){
         return b.index - a.index;
     });
-    
+
     for(let i=0; i<maxPage; i++){
         page_arr.push(post_list.splice(0,5));
     }
@@ -231,6 +233,10 @@ function deleteCnt(){
         page_html += `<button class="button" id="page_${x+1}" onclick="pageMove(${x+1});">${x+1}</button>`;
     }
     document.getElementById('page_area').innerHTML = page_html;
+}else {
+    document.getElementById('page_area').innerHTML = `<button class="button" id="page_1" onclick="pageMove(1));">1</button>`;
+    
+}
 
 // 페이지 이동
 function pageMove(num){
@@ -248,9 +254,10 @@ document.get
 function loadCnt(num) {
     let p = num ? num-1 : 0;
     // 글목록 생성
-    for(let i=0; i<page_arr[p].length; i++){
-
-        let list_html = `
+    if(page_arr.length !== 0){
+        for(let i=0; i<page_arr[p].length; i++){
+            
+            let list_html = `
             <tr class="list" onclick="showDtil(${page_arr[p][i].index});">
                 <td>${page_arr[p][i].index}</td>
                 <td>${page_arr[p][i].title}</td>
@@ -258,11 +265,18 @@ function loadCnt(num) {
                 <td>${page_arr[p][i].reply.length}</td>
                 <td>${page_arr[p][i].date}</td>
             </tr>
-        `;
-
-        document.getElementById("contentList").insertAdjacentHTML("beforeend", list_html);
+            `;
+            
+            document.getElementById("contentList").insertAdjacentHTML("beforeend", list_html);
+        }
+    }else {
+        document.getElementById("contentList").innerHTML = 
+            `<tr >
+                <td colspan="5">등록된 글이 없습니다.</td>
+            </tr>    
+            `;
     }
-    
+        
     // 페이지 처음 진입시 1 페이지를 표시
     if(p == 0){
         document.getElementById('page_1').classList.add('active');
