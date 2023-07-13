@@ -9,7 +9,7 @@
   "type": "module",
   "name": "vanilla",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.cjs",
   "repository": "https://github.com/seunguk1/vanilla.git",
   "author": "SuLee <leeseunguk3@gmail.com>",
   "license": "MIT",
