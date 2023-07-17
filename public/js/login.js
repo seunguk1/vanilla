@@ -1,10 +1,9 @@
-const joinBtn = document.getElementById("joinBtn");
-
-// 회원가입 버튼 클릭이벤트 - 페이지 이동
-joinBtn.addEventListener('click', function(){
+// 회원가입 버튼
+function join() {
     location.href='./join.html';
-});
+}
 
+// 로그인 버튼
 function login() {
     const userId = document.getElementById('userId').value.trim();   
     const userPwd = document.getElementById('userPwd').value.trim();   

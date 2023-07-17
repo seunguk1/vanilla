@@ -1,29 +1,28 @@
-// 로그인여부 확인 및 Nav 표시 상이
-var loginYn = JSON.parse(window.localStorage.getItem("LoginYn"));
-console.log(`로그인여부 :: ${loginYn.login}`);
-if(loginYn.login == "Y"){
-    document.getElementById("joinPath").style.display = "none";
-    // 정상적인 로그인을 한 상태면 logout으로 text 변경
-    document.getElementById("loginPath").innerHTML = `<a href="./login.html">Logout</a>`;
-    document.getElementById('myPagePath').innerHTML = `<a href="./myPage.html">${loginYn.name}</a>님, 반갑습니다.`;
-}else {
-    alert("회원만 이용가능합니다.");
-    location.href = "./login.html";
-}
 
-// 로그인 후 login -> logout 변경된 버튼 클릭시, 로그인 상태를 'N'로 저장
-document.getElementById("loginPath").addEventListener('click', ()=>{
-    loginYn.login = "N";
-    loginYn.id = "";
-    loginYn.name = "";
-    window.localStorage.setItem("LoginYn", JSON.stringify(loginYn)); 
+$(document).ready(function(){
+
+    // 로그인여부 확인 및 Nav 표시 상이
+    let loginYn = JSON.parse(window.localStorage.getItem("LoginYn"));
+    console.log(`로그인여부 :: ${loginYn.login}`);
+    if(loginYn.login === "N"){
+        alert("회원만 이용가능합니다.");
+        location.href = "./login.html";
+    }
 });
 
+// 로그인 후 login -> logout 변경된 버튼 클릭시, 로그인 상태를 'N'로 저장
+// document.getElementById("loginPath").addEventListener('click', ()=>{
+//     loginYn.login = "N";
+//     loginYn.id = "";
+//     loginYn.name = "";
+//     window.localStorage.setItem("LoginYn", JSON.stringify(loginYn)); 
+// });
+
 //오늘 날짜
-var date = new Date();
-var year = date.getFullYear();                          // 년도
-var month = ('0' + (date.getMonth() + 1)).slice(-2);    // 월
-var day = ('0' + date.getDate()).slice(-2);
+const date = new Date();
+const year = date.getFullYear();                          // 년도
+const month = ('0' + (date.getMonth() + 1)).slice(-2);    // 월
+const day = ('0' + date.getDate()).slice(-2);
 
 // 글쓰기 form 표시
 function writeCnt(){
