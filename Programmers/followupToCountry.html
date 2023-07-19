@@ -12,12 +12,100 @@
     </div> -->
     <div style="padding-left: 50px; padding-top: 50px;">
         <button style="padding: 1%;" onclick="solution();">실행</button>
+        <span>node 분리 필요</span>
+    </div>
+    <div style="padding-left: 50px; padding-top: 50px;">
+        <button style="padding: 1%;" onclick="solution2();">실행</button>
+        <span>탐욕법 시도</span>
     </div>
     <script>
         function solution() {
-            let answer = 0;
-         
-            // return answer;
+            const country = ['Brazil', 'Croatia', 'Mexico', 'Cameroon', 'Spain'
+                            , 'Netherlands', 'Chile', 'Australia', 'Colombia', 'Greece'
+                            , 'Cote d\'lvoire', 'Japan', 'Uruguay', 'Costa Rica', 'England'
+                            , 'Italy', 'Switzerland', 'Ecuador', 'France', 'Honduras'
+                            , 'Argentina', 'Bosnia and Herzegovina', 'Iran', 'Nigeria', 'Germany'
+                            , 'Portugal', 'Ghana', 'USA', 'Belgium', 'Algeria'
+                            , 'Russia', 'Korea Republic'
+                        ];
+
+            const arr_char = [];
+
+            country.forEach(function(el) {
+                el = el.toLowerCase();
+                let word = el[0] + el[el.length-1];
+                arr_char.push(word);
+            });
+            console.log(arr_char);
+            
+            const result = [];
+            for(let i=0; i<arr_char.length; i++){
+                const used = Array(arr_char.length).fill(false);
+                const stack = [];
+
+                stack.push(arr_char[i]);
+                used[i] = true;
+
+                const line = [];
+                while(stack.length > 0){
+                    let start = stack.pop();
+                    line.push(start);
+                    for(let j=0; j<arr_char.length; j++){
+                        if(used[j]){
+                           continue; 
+                        }
+                        
+                        if(start.substr(1,1) == arr_char[j].substr(0,1)){
+                            stack.push(arr_char[j]);
+                            used[j] = true;
+                        }        
+                    }
+                }
+                result.push(line);
+            }
+
+            console.log(result);
+        }
+
+        function solution2() {
+            const country = ['Brazil', 'Croatia', 'Mexico', 'Cameroon', 'Spain'
+                            , 'Netherlands', 'Chile', 'Australia', 'Colombia', 'Greece'
+                            , 'Cote d\'lvoire', 'Japan', 'Uruguay', 'Costa Rica', 'England'
+                            , 'Italy', 'Switzerland', 'Ecuador', 'France', 'Honduras'
+                            , 'Argentina', 'Bosnia and Herzegovina', 'Iran', 'Nigeria', 'Germany'
+                            , 'Portugal', 'Ghana', 'USA', 'Belgium', 'Algeria'
+                            , 'Russia', 'Korea Republic'
+                        ];
+
+            const arr_char = [];
+            const start_char = [];
+            const last_char = [];
+
+            country.forEach(function(el) {
+                el = el.toLowerCase();
+                start_char.push(el[0]);
+                last_char.push(el[el.length-1]);
+                let word = el[0] + el[el.length-1];
+                arr_char.push(word);
+            });
+            console.log(arr_char);
+            console.log(start_char);
+            console.log(last_char);
+
+            const tmp_arr = [];
+            for(let i=0; i<last_char.length; i++){
+                let index = start_char.indexOf(last_char[i]);
+                if(index >= 0){
+                    tmp_arr.push(arr_char[i] + arr_char[index]);
+                }else {
+                    tmp_arr.push(arr_char[i]);
+                }
+            }
+
+            console.log(tmp_arr);
+            // console
+            console.log(tmp_arr.indexOf(tmp_arr[1].substr(-1)));
+
         }
 
     </script>
