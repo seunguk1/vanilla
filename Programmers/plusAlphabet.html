@@ -17,52 +17,48 @@
         function solution() {
             let answer = 0;
             const alphabet = ['R', 'E', 'A', 'D', 'W', 'I', 'T', 'L', 'S', 'K'];
-            const num = [1, 0, 0, 0, 1, 0, 0, 0, 1, 0];
-            const arr = [];
 
-            // for(let i=alphabet.length-1; i>=0; i--){
-            //     for(let j=0; j<9; j++){
-            //         if(confirm(num)){
-            //             answer++;
-            //             arr.push(num);
-            //         }
-
-            //         if(num[i]+1 > 9){
-            //             break;
-            //         }
-            //         num.splice(i, 1, num[i]+1);
-            //         console.log(num);
-            //     }
-            // }
-            // console.log(answer);
-            // console.log(arr);
             const list = [0,1,2,3,4,5,6,7,8,9];
             const result = [];
+            // 각 알파벳 위치에 중복없이 순열로 숫자 선택하기
             function permutation(item, depth) {
-                if(depth == 7){
-                    // if(confirm(item)){
-                    //     answer++;
-                        result.push(item);
-                    // }
+                if(depth == 10){
+                    if(confirm(item)){
+                        if( (item.substr(0,1) !== "0") && (item.substr(4,1) !== "0") 
+                        && (item.substr(6,1) !== "0") && (item.substr(8,1) !== "0")){
+                            answer++;
+                            result.push(item);
+                        }
+                    }
                     return;
                 }
                 for(let k=0; k<10; k++){
-                    
-                    permutation(String(item)+(list[k]), depth+1);
+                    if(item.includes(list[k])){
+                        continue;
+                    }
+                    permutation(String(item)+String(list[k]), depth+1);  
                 }
             }
             permutation('', 0);
             console.log(answer);
-            // console.log(result);
+            console.log(result);
             
             // return answer;
+            // 답 : 10개 위 배열 순서대로 ['1632497850', '2543706981', '4905268137', '5094731682', '5096371842', '5180692473', '5270813694', '7092351846', '7092431856', '9728146035']
+
+            /*
+             ** 구현방안 : 
+             *  - 필요한 알파벳들을 추려서 배열에 담고 각각 순열로
+             *    중복 없이 숫자를 반복적으로 할당하여 해당 수식에 대입하여 옳은 숫자 조합만을 반환하려고 했습니다.
+             ** 문제 : 
+             *  - 주어진 수식 외의 다른 단어와 수식이 주어질 경우의 새로운 글자 배열과 검증식이 필요합니다.  
+             */
         }
 
+        // 검증식
         function confirm(num) {
             let correct = false;
-            // 검증식
             let value_1 = Number(String(num[0])+String(num[1])+String(num[2])+String(num[3]));
-            // let value_1 = Number(num.substring(0,4));
             let value_2 = Number(String(num[4])+String(num[0])+String(num[5])+String(num[6])+String(num[1]));
             let value_3 = Number(String(num[6])+String(num[2])+String(num[7])+String(num[9]));
             let result =  Number(String(num[8])+String(num[9])+String(num[5])+String(num[7])+String(num[7])); 
@@ -73,6 +69,7 @@
 
             return correct;
         }
+
     </script>
 </body>
 </html>

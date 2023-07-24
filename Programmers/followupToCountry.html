@@ -19,6 +19,7 @@
         <span>탐욕법 시도</span>
     </div>
     <script>
+        // DFS로 풀어보기
         function solution() {
             const country = ['Brazil', 'Croatia', 'Mexico', 'Cameroon', 'Spain'
                             , 'Netherlands', 'Chile', 'Australia', 'Colombia', 'Greece'
@@ -28,33 +29,38 @@
                             , 'Portugal', 'Ghana', 'USA', 'Belgium', 'Algeria'
                             , 'Russia', 'Korea Republic'
                         ];
-
+                        
+            // 맨 앞 알파벳과 맨 뒤 알파벳의 조합으로 구성된 배열 생성
             const arr_char = [];
-
             country.forEach(function(el) {
                 el = el.toLowerCase();
-                let word = el[0] + el[el.length-1];
+                let word = el[0] + el[el.length-1]; 
                 arr_char.push(word);
             });
             console.log(arr_char);
             
+            // 끝말잇기로 이어진 최종 나라들 
             const result = [];
             for(let i=0; i<arr_char.length; i++){
                 const used = Array(arr_char.length).fill(false);
                 const stack = [];
 
+                //배열 순서대로 선택된 나라로 끝말잇기를 시작한다.
                 stack.push(arr_char[i]);
-                used[i] = true;
+                used[i] = true;     // 나라들을 한 번씩만 사용해야함
 
                 const line = [];
+                // stack에 남아 비교할 나라가 없을떄까지 반복
                 while(stack.length > 0){
                     let start = stack.pop();
                     line.push(start);
                     for(let j=0; j<arr_char.length; j++){
+                        // 사용된 나라는 넘김
                         if(used[j]){
                            continue; 
                         }
                         
+                        // 선택된 나라의 끝 문자와 일치하는 앞 문자의 나라를 반복하면서 찾아 stack에 담음
                         if(start.substr(1,1) == arr_char[j].substr(0,1)){
                             stack.push(arr_char[j]);
                             used[j] = true;
@@ -65,8 +71,18 @@
             }
 
             console.log(result);
+            /*
+             * 접근법 :
+             *  DFS로 stack에 담아서 완전 탐색하여 모든 나라별로 시작 했을 경우들 중에
+             *  가장 길게 이어진 경우를 찾으려 하였습니다.
+             *  그러나 지금 구현된 코드에서는 갈라지는 node에서 분리 되어 배열에 담겨야 하는데,
+             *  node가 갈라져 이어지지 않더라도 시작하는 나라의 배열에 같이 담겨 있어서
+             *  이 부분을 구분지어 분배하는 코드가 필요합니다.
+             */
         }
 
+
+        // 탐욕법(?)으로 풀어보기
         function solution2() {
             const country = ['Brazil', 'Croatia', 'Mexico', 'Cameroon', 'Spain'
                             , 'Netherlands', 'Chile', 'Australia', 'Colombia', 'Greece'
@@ -76,36 +92,66 @@
                             , 'Portugal', 'Ghana', 'USA', 'Belgium', 'Algeria'
                             , 'Russia', 'Korea Republic'
                         ];
+            let count = 0;                             
 
-            const arr_char = [];
-            const start_char = [];
-            const last_char = [];
+            // 재귀함수로 반복
+            function recursive(arr, cnt) {
+                const arr_char = [];
+                const start_char = [];
+                const last_char = [];
 
-            country.forEach(function(el) {
-                el = el.toLowerCase();
-                start_char.push(el[0]);
-                last_char.push(el[el.length-1]);
-                let word = el[0] + el[el.length-1];
-                arr_char.push(word);
-            });
-            console.log(arr_char);
-            console.log(start_char);
-            console.log(last_char);
+                // 나라별 앞 문자와 끝 문자를 각각 새로운 배열들에 담음
+                arr.forEach(function(el) {
+                    el = el.toLowerCase();
+                    start_char.push(el[0]);
+                    last_char.push(el[el.length-1]);
+                });
 
-            const tmp_arr = [];
-            for(let i=0; i<last_char.length; i++){
-                let index = start_char.indexOf(last_char[i]);
-                if(index >= 0){
-                    tmp_arr.push(arr_char[i] + arr_char[index]);
-                }else {
-                    tmp_arr.push(arr_char[i]);
+                const tmp_arr = [];
+                const used = Array(arr.length).fill(false);
+
+                for(let i=0; i<used.length; i++){
+                    if(used[i]){
+                        continue;   
+                    }
+
+                    // 앞 문자와 끝 문자가 이어지는 나라들을 계속 연결해 나감
+                    let index = start_char.indexOf(last_char[i]);
+                    if((index >= 0) && !used[index]){
+                        tmp_arr.push(arr[i] + "->" + arr[index]);
+                        used[i] = true; 
+                        used[index] = true;
+                        count++
+                    }else {
+                        tmp_arr.push(arr[i]);       // 
+                        // used[i] = true; 
+                    }
                 }
+
+                if(cnt == 0) {
+                    return tmp_arr;
+                }else{
+                    return recursive(tmp_arr, cnt-1);
+                }
+
             }
-
-            console.log(tmp_arr);
-            // console
-            console.log(tmp_arr.indexOf(tmp_arr[1].substr(-1)));
-
+            const result = recursive(country, 10);
+            console.log(result);
+            
+            
+            // recursive(result);
+            // console.log(result);
+            
+            console.log("=======");
+            /*
+             * 접근법 : 
+             *  시작하는 나라를 선택해 이어지는 나라를 찾는법을 순서대로 반복해서 탐색하는게 아니라
+             *  이어지는 두 나라를 먼저 붙여 새로운 배열에 담아 이 동장을 계속해서 반복하는 식으로
+             *  구현해보려 했습니다. 다만, 이 방법은 나라를 이어 붙이는 판단 기준이 항상 
+             *  앞 문자와 끝 문자만을 비교하기 때문에, 이미 이어 붙여진 나라들 사이에 끼워질 수 있는 경우는 
+             *  제외 되어 가장 길게 이어지는 결과가 도출되지는 못했습니다.
+             *  나라를 이어붙이는 판단 case를 추가하면 해결이 가능할 것도 같다고 생각합니다.
+             */
         }
 
     </script>
