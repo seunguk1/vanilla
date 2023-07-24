@@ -1,23 +1,28 @@
 const nav = [
-    {
+    {   // 로그인
         id : "loginPath",
         url : "./login.html",
         title : "Login" 
     },
-    {
+    {   // 회원가입
         id : "joinPath",
         url : "./join.html",
         title : "Join"
     },
-    {
+    {   // 게시판
         id : "boardPath",
         url : "./board.html",
         title : "Board"
     },
-    {
+    {   // ToDoList
         id : "myPagePath",
         url : "./myPage.html",
         title : ""
+    },
+    {   // 지도 검색
+        id : "kakaomapApi",
+        url : "./searchMap.html",
+        title : "인바디 검사소 검색"
     }
 ];
 
@@ -25,7 +30,7 @@ $(document).ready(function(){
     nav.forEach(element => {
         let navHTML = `<li id="${element.id}"><a href="${element.url}">${element.title}</a></li>`;
         $("nav ul").append(navHTML);
-        console.log(navHTML);
+        // console.log(navHTML);
     });
     
     // 로그인여부 확인 및 Nav 표시 상이
@@ -45,6 +50,7 @@ $(document).ready(function(){
     }else if(loginYn.login === "N") {
         $("#boardPath").hide();
         $("#myPagePath").hide();
+        $("#kakaomapApi").hide();
     }
     
 });

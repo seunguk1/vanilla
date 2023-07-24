@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/myPage.css" type="text/css">
+     <link rel="shortcut icon" href="#">
+     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+     <script src="../js/jquery-3.7.0.min.js"></script>
+     <title>검색</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar__menu"></ul>
+    </nav> 
+    <h2 id="pageTit" style="padding-left: 80px; padding-top: 10PX;">인바디 검사소 검색</h2>
+    <div style="margin-left: 80px;">
+        <input type="text" id="searchWord" size="50" placeholder="검색할 지역을 입력해주세요.">
+        <button onclick="searchMap();">검색</button>
+    </div>
+    <hr/>
+
+
+<script src="../js/searchMap.js" ></script>  
+<script src="../js/nav.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>  
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
