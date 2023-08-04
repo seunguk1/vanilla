@@ -8,30 +8,47 @@
     <title>test</title>
 </head>
 <body>
-    <input type="text" id="picks">
-    <input type="text" id="minerals">
-    <button onclick="test();">test</button>
+    <div style="padding-left: 50px; padding-top: 50px;">
+        <button style="padding: 1%;" onclick="solution();">실행</button>
+    </div>
 <script>
-    function test(){
-        let numbers = [1,1,1,1,1];
-        let target = 3;
+    function solution() {
+        let progresses = [93, 30, 55];
+        let speeds = [1, 30, 5];
 
-        solution(numbers, target);
-    }
-
-    function solution(numbers, target) {
-        var answer = 0;
-    
-        console.log(plus(26));
-        return answer;
-    }
-
-    function plus(num){
-        if(num === 0){
-            return num;
+        var answer = [];
+        const complete_day = [];
+        
+        for(let i=0; i<progresses.length; i++){
+            let days = Math.ceil((100 - progresses[i]) / speeds[i]) + 1; // 배포날짜는 작업완료
+                                                                        // 후 다음날 가능
+            complete_day.push(days);   
         }
-        console.log(num);
-        return (num + plus(num-1));
+        console.log(complete_day);
+        
+        const count = [];
+        const arr = [];
+        for(let k=0; k<complete_day.length; k++) {
+            if(count.length === 0){
+                count.push(complete_day[k]);    
+                continue;
+            }
+            
+            let compare = count.shift();
+            if(compare >= complete_day[k]) {
+                count.unshift(compare);
+                count.push(complete_day[k]);
+            }else {
+                count.unshift(compare);
+                console.log(count);
+                arr.push(count);
+                count.length = 0;
+                count.push(complete_day[k]);
+            }
+        }
+        
+        console.log(arr);
+        return answer;
     }
 
 </script>
